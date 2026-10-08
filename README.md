@@ -22,10 +22,6 @@
 ---
 
 <!-- ABOUT -->
-<table>
-<tr>
-<td width="60%">
-
 ### About
 
 Third assignment of the **Machine Learning Zoomcamp 2026** organized by **DataTalks Club**. You can enroll in the course here: [courses.datatalks.club/ml-zoomcamp-2026](https://courses.datatalks.club/ml-zoomcamp-2026/).
@@ -36,14 +32,11 @@ On top of the assignment, a **personal continuation** retrains the model on the 
 
 The **course_lead_scoring_2026.csv** dataset contains 5,000 lead records (source, industry, employment status, location, income, courses viewed, interactions, lead score) and the target `converted` telling whether the lead signed up to the platform.
 
-</td>
-<td width="40%" align="center">
+<div align="center">
 
-<img src="avatar.png" width="400" alt="Avatar"/>
+<img src="avatar.png" width="736" alt="Avatar"/>
 
-</td>
-</tr>
-</table>
+</div>
 
 ---
 
@@ -229,14 +222,11 @@ uv run jupyter notebook notebook.ipynb
 <!-- CONTINUATION -->
 ### Beyond the Homework — My Own Continuation
 
-<table>
-<tr>
-<td width="42%" align="center">
+<div align="center">
 
-<img src="higuruma.png" width="430" alt="Higuruma — JJK"/>
+<img src="higuruma.png" width="735" alt="Higuruma — JJK"/>
 
-</td>
-<td width="58%">
+</div>
 
 **Not part of the assignment.** After Q6 I kept going and reused the skills already covered in class.
 
@@ -259,10 +249,6 @@ Training + validation merged → **4 000 rows**, evaluated once on the untouched
 **Best trial** → `C = 1.186`, `solver = newton-cholesky`, `class_weight = None` — validation accuracy **0.731**
 
 *The homework grid picked the strongest regularization (`C = 0.001`), while Optuna found that a much weaker regularization (`C ≈ 1.19`) generalizes better — a nice reminder that a hand-picked grid is only as good as the values you thought to test.*
-
-</td>
-</tr>
-</table>
 
 ---
 
