@@ -16,6 +16,7 @@
 <img width="40" height="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib" />
 <img width="40" height="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" alt="Scikit-Learn" />
 <img width="40" height="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" alt="Jupyter" />
+<img height="40" src="https://img.shields.io/badge/Optuna-hyperparameter%20optimization-3B4CCA?style=flat-square" alt="Optuna" />
 </p>
 
 ---
@@ -31,12 +32,14 @@ Third assignment of the **Machine Learning Zoomcamp 2026** organized by **DataTa
 
 This project covers **classification** with logistic regression for lead scoring. We explore missing value imputation, correlation analysis, mutual information for feature selection, one-hot encoding, feature elimination, and regularization with different `C` values.
 
+On top of the assignment, a **personal continuation** retrains the model on the full training set, evaluates it with a classification report & confusion matrix, and runs an **Optuna** hyperparameter search — pushing test accuracy from **0.67 → 0.73**.
+
 The **course_lead_scoring_2026.csv** dataset contains 5,000 lead records (source, industry, employment status, location, income, courses viewed, interactions, lead score) and the target `converted` telling whether the lead signed up to the platform.
 
 </td>
 <td width="40%" align="center">
 
-<img src="avatar.jpg" width="400" alt="Avatar" style="border-radius: 20px; object-fit: cover;">
+<img src="avatar.png" width="400" alt="Avatar"/>
 
 </td>
 </tr>
@@ -69,6 +72,12 @@ Questions
 
 **0.645**
 Val Accuracy
+
+</td>
+<td align="center" width="120">
+
+**0.73**
+Test Acc (Optuna)
 
 </td>
 </tr>
@@ -164,9 +173,10 @@ Val Accuracy
 ```
 HW3/
 ├── course_lead_scoring_2026.csv   # Dataset (5K leads)
-├── notebook.ipynb                 # Notebook with solutions
+├── notebook.ipynb                 # Notebook with solutions + Optuna continuation
 ├── pyproject.toml                 # Project configuration
-├── avatar.jpg                     # Avatar image
+├── avatar.jpg / avatar.png        # Avatar (source / rounded, used in README)
+├── higuruma.jpg / higuruma.png    # Continuation banner (source / rounded)
 └── README.md
 ```
 
@@ -213,6 +223,46 @@ uv run jupyter notebook notebook.ipynb
 | Q4 | `0.65` | Accuracy on the validation set |
 | Q5 | `number_of_courses_viewed` | Smallest difference `0.002` (0.6450 → 0.6430) |
 | Q6 | `0.001` | Best `C`, validation accuracy `0.645` |
+
+---
+
+<!-- CONTINUATION -->
+### Beyond the Homework — My Own Continuation
+
+<table>
+<tr>
+<td width="42%" align="center">
+
+<img src="higuruma.png" width="430" alt="Higuruma — JJK"/>
+
+</td>
+<td width="58%">
+
+**Not part of the assignment.** After Q6 I kept going and reused the skills already covered in class.
+
+#### 1 — Retrain on the full training set
+Training + validation merged → **4 000 rows**, evaluated once on the untouched **1 000-row test set**
+(`classification_report` + seaborn confusion matrix).
+
+| Model | Accuracy |
+|:---:|:---:|
+| Homework model (`C = 0.001`, retrained) | **0.67** |
+| Optimized model (Optuna) | **0.73** |
+
+#### 2 — Optimization with Optuna
+100 trials maximizing validation accuracy over:
+
+- `C` — log-scaled from `1e-6` to `10`
+- `solver` — `liblinear` / `lbfgs` / `newton-cholesky`
+- `class_weight` — `None` / `balanced`
+
+**Best trial** → `C = 1.186`, `solver = newton-cholesky`, `class_weight = None` — validation accuracy **0.731**
+
+*The homework grid picked the strongest regularization (`C = 0.001`), while Optuna found that a much weaker regularization (`C ≈ 1.19`) generalizes better — a nice reminder that a hand-picked grid is only as good as the values you thought to test.*
+
+</td>
+</tr>
+</table>
 
 ---
 
